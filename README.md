@@ -1,10 +1,14 @@
 # ROS2 Workshop
-This repo provides a walk-through for the ROS2 Workshop. These instructions are designed by someone with access to the Isengard server on the Colorado School of Mines campus. Following these steps should set one up to use ROS2 on Isengard with Gazebo.
+This repo provides a walk-through for the ROS2 Workshop. These instructions are designed by someone with access to the Isengard server on the Colorado School of Mines campus but can also be used with a locally installed version of ROS2. Following these steps should set one up to use ROS2 on Isengard with Gazebo. If you would like to run ROS locally, then please follow the [install instructions](https://docs.ros.org/en/foxy/Installation.html) from the ros.org. Note that we are using ROS 2 Foxy Fitzroy on Ubuntu 20.04. 
 
 ## Setting-up Basic ROS2 Workspace
-You will need to ssh into Isengard. This can be done from a computer in CTLM B60 or on any machine that is connected to the Mines WiFi.
+We will first create a workspace. Everything in ROS2 is done in what is called a workspace. A workspace is a directory (folder) where we store source code, build ROS2 packages, and run ROS2 nodes.
+
+If you are not using Isengard, then skip to **Make a new workspace**
 
 ### Accessing Isengard
+To use ROS2 on Isengard you will need to ssh into Isengard. This can be done from a computer in CTLM B60 or on any machine that is connected to the Mines WiFi.
+
 ```
 ssh -Y <your-login>@isengard.mines.edu
 ```
@@ -18,7 +22,7 @@ byobu
 In byobu, you can open new tabs using F2. Cycle through tabs using F3/4. To close a tab or exit byobu, run `exit`.
 
 ### Make a new workspace
-Everything in ROS2 is done in what is called a workspace. A workspace is a directory (folder) where we store source code, build ROS2 packages, and run ROS2 nodes.
+Let's create a new ROS2 workspace in the user's home directory.
 
 ```
 mkdir -p ~/ros2_ws/src
@@ -26,11 +30,18 @@ cd ~/ros2_ws
 ```
 
 ### Checkout ROS2 Packages
-We will need a variety of ROS packages. Pull this repository into the src folder.
+Pull this repository into the src folder. The repository has a few already-created ROS2 packages.
 
 ```
 git clone https://github.com/JonD07/ros2_tutorial.git src/ros2_tutorial
 ```
+
+Packages are where we store source code for nodes. Take a minute to explore the file structure of the `basic_tutorial` package, located at `~/ros2_ws/src/ros2_tutorial/basic_tutorial`. Notable elements of the package include:
+
+- `basic_tutorial/` - Folder (with the same name as the package) that holds python code for nodes
+- `package.xml` - Package description and dependencies
+- `setup.cfg` - Build/Install configurations (mostly boiler plate stuff)
+- `setup.py` - More package information, install instructions, and list of package nodes
 
 ### Building
 To build ROS2 packages, we first need to source the basic ROS2 tools that are installed on Isengard.
@@ -129,6 +140,7 @@ ros2 run basic_tutorial client 2 3
 ```
 
 ## Using Gazebo
+Gazebo is a robot simulator that works with ROS2. Gazebo is already installed on Isengard and can easily be installed on other machines following these [instructions](https://classic.gazebosim.org/tutorials?tut=ros2_installing).
 
 To use Gazebo on Isengard, you will need several supporting packages. On most machines, we can get new ROS packages using `apt`. To download a new package, you simply run:
 
@@ -136,12 +148,17 @@ To use Gazebo on Isengard, you will need several supporting packages. On most ma
 
 However, we do not have sudo privileges on Isengard, so we need to checkout packages from source into our workspace. Clone the following into your workspace:
 
+**Note**: You do not need to manually install packages on a machine that you have administrative access to! Manually the following is only required to work on Isengard. ROS2 desktop version already comes with most of these packages. 
+
 ```
 git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git src/gazebo_ros_pkgs -b foxy
 git clone https://github.com/ros-perception/image_common.git src/image_common -b foxy
 git clone https://github.com/ros-perception/vision_opencv.git src/vision_opencv -b foxy
 git clone https://github.com/ros2/rviz.git src/rviz -b foxy
 git clone https://github.com/ros/resource_retriever.git src/resource_retriever -b foxy
+git clone https://github.com/ros-visualization/interactive_markers.git src/interactive_markers -b foxy
+git clone https://github.com/ros-perception/laser_geometry.git src/laser_geometry -b foxy
+git clone https://github.com/ros-planning/navigation_msgs.git src/nav_msgs -b foxy
 ```
 
 Build all of the new packages.
