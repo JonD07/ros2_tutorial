@@ -32,15 +32,6 @@ We will need a variety of ROS packages. Pull this repository into the src folder
 git clone https://github.com/JonD07/ros2_tutorial.git src/ros2_tutorial
 ```
 
-(Optional) To use Gazebo on Isengard, you will also need to checkout the following:
-
-```
-git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git src/gazebo_ros_pkgs -b foxy
-git clone https://github.com/ros-perception/image_common.git src/image_common -b foxy
-git clone https://github.com/ros-perception/vision_opencv.git src/vision_opencv -b foxy
-git clone https://github.com/ros2/rviz.git src/rviz -b foxy
-```
-
 ### Building
 To build ROS2 packages, we first need to source the basic ROS2 tools that are installed on Isengard.
 
@@ -53,8 +44,6 @@ We build ROS2 packages using a build tool called colcon. To run colcon and build
 ```
 colcon build
 ```
-
-If you cloned the needed Gazebo repositories, building all of the packages will take some time. This is a good time to go through the workshop slides and learn more about how ROS2 works.
 
 ## Running Basic ROS2 Nodes
 When colcon has finished building and installing all of our ROS2 packages, we can experiment with some basic nodes that demonstrate how both topics and services work. This repository contains code examples for creating publishers, subscribers, service servers, and service clients. The details on how to implement all of these from scratch can be found in the [ROS2 Foxy tutorials](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries.html).
@@ -140,7 +129,30 @@ ros2 run basic_tutorial client 2 3
 ```
 
 ## Using Gazebo
-If you cloned the `gazebo_ros_pkgs` repository and its dependencies and successfully built all of their packages, then you can run the Gazebo simulator and use ROS2 to interact with robots within the simulator. Start by sourcing the workspace. 
+
+To use Gazebo on Isengard, you will need several supporting packages. On most machines, we can get new ROS packages using `apt`. To download a new package, you simply run:
+
+`sudo apt install ros-foxy-<some-neat-package>`
+
+However, we do not have sudo privileges on Isengard, so we need to checkout packages from source into our workspace. Clone the following into your workspace:
+
+```
+git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git src/gazebo_ros_pkgs -b foxy
+git clone https://github.com/ros-perception/image_common.git src/image_common -b foxy
+git clone https://github.com/ros-perception/vision_opencv.git src/vision_opencv -b foxy
+git clone https://github.com/ros2/rviz.git src/rviz -b foxy
+git clone https://github.com/ros/resource_retriever.git src/resource_retriever -b foxy
+```
+
+Build all of the new packages.
+
+```
+colcon build
+```
+
+This may take some time... Now is a good time to go through the workshop slides and learn more about how ROS2 works.
+
+Once complete, be sure to source the install again.
 
 ```
 source install/setup.bash
