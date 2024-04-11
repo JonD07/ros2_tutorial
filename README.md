@@ -1,5 +1,7 @@
 # ROS2 Workshop
-This repo provides a walk-through for the ROS2 Workshop. These instructions are designed by someone with access to the Isengard server on the Colorado School of Mines campus but can also be used with a locally installed version of ROS2. Following these steps should set one up to use ROS2 on Isengard with Gazebo. If you would like to run ROS locally, then please follow the [install instructions](https://docs.ros.org/en/foxy/Installation.html) from the ros.org. Note that we are using ROS 2 Foxy Fitzroy on Ubuntu 20.04. 
+This repo provides a walk-through for the ROS2 Workshop. The slides for the workshop can be found [here](https://docs.google.com/presentation/d/16l8FBTwdDo79FANmzRIPsMCFvNq-8jPfQ0DPoVmW-qQ/edit?usp=sharing).
+
+These instructions are designed for someone with access to the Isengard server on the Colorado School of Mines campus but can also be used with a locally installed version of ROS2. Following these steps should set one up to use ROS2 on Isengard with Gazebo. If you would like to run ROS locally, then please follow the [install instructions](https://docs.ros.org/en/foxy/Installation.html) from ros.org. Note that we are using ROS 2 Foxy Fitzroy on Ubuntu 20.04. 
 
 ## Setting-up Basic ROS2 Workspace
 We will first create a workspace. Everything in ROS2 is done in what is called a workspace. A workspace is a directory (folder) where we store source code, build ROS2 packages, and run ROS2 nodes.
