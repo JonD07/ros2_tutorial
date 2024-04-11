@@ -38,6 +38,7 @@ git clone https://github.com/JonD07/ros2_tutorial.git src/ros2_tutorial
 git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git src/gazebo_ros_pkgs -b foxy
 git clone https://github.com/ros-perception/image_common.git src/image_common -b foxy
 git clone https://github.com/ros-perception/vision_opencv.git src/vision_opencv -b foxy
+git clone https://github.com/ros2/rviz.git src/rviz -b foxy
 ```
 
 ### Building
@@ -157,5 +158,27 @@ You should see Gazebo launch with a small warehouse robot sitting in a rustic-lo
 In a different terminal, try driving the robot.
 
 ```
-ros2 topic pub /demo/cmd_vel geometry_msgs/Twist '{linear: {x: 0.1}}' -1
+ros2 topic pub /demo/cmd_vel geometry_msgs/Twist '{linear: {x: 0.5}}' -1
+```
+
+You can also watch the lidar scans from the robot get published. Run the following on a different terminal tab:
+
+```
+ros2 topic echo /demo/laser/out
+```
+
+Stop both the topic echo and the simulation with Ctrl+C
+
+We will now use a basic reactive controller to drive our robot around the warehouse race track in the simulator. To do this we will use a launch file to run multiple nodes at once. First, launch the simulation again.
+
+```
+gazebo --verbose src/ros2_tutorial/worlds/warehouse_track.world
+```
+
+The launch file and reactive controller are located in the `src/ros2_tutorial/basic_tutorial/robot_control/` package. The controller uses an algorithm called "Follow the gap", which takes in lidar scans, searches for the largest consecutive distance measurements that are longer than a preset value (the largest "gap"), and then steers the robot towards the center of the gap. The launch file will launch our follow-the-gap node, a rviz2 node, and some static transforms. To learn more about launch files, head over the the [intermediate ROS2 tutorials](https://docs.ros.org/en/foxy/Tutorials/Intermediate.html).
+
+Launch our follow-the-gap launch file in a new tab:
+
+```
+ros2 launch robot_control follow_gap_launch.py
 ```
