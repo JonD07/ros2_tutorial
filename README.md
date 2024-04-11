@@ -26,10 +26,9 @@ cd ~/ros2_ws
 ```
 
 ### Checkout ROS2 Packages
-We will need a variety of ROS packages. Pull the basic ROS tutorial packages and this repository.
+We will need a variety of ROS packages. Pull this repository into the src folder.
 
 ```
-git clone https://github.com/ros/ros_tutorials.git src/ros_tutorials -b foxy-devel
 git clone https://github.com/JonD07/ros2_tutorial.git src/ros2_tutorial
 ```
 
